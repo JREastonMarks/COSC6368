@@ -1,0 +1,43 @@
+<mxfile host="65bd71144e">
+    <diagram id="hRxpwWQGmCKTqZho-rvt" name="Page-1">
+        <mxGraphModel dx="962" dy="352" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;h1&gt;Algorithm&lt;/h1&gt;&lt;p&gt;For each layer l:&lt;br&gt;&amp;nbsp; &amp;nbsp;For each node i:&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; if(node(l,i) &amp;gt; 0):&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;weight[:, l] = weight[:, l] + omega&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; if(node(l,i) &amp;lt; 0):&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;weight[:, l] = weight[:, l] - omega&lt;/span&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="270" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="[ 1. -1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1170" y="100" width="50" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;div&gt;[[0.10927821 0.06302826]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.00082355 0.00204966]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.55675768 0.07052724]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.00413461 0.19340078]]&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="970" y="80" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="[-1. -1.&amp;nbsp; 1. -1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="100" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;div&gt;[[7.88866874e-02 8.66503283e-03 1.28391982e-01 6.74966329e-03]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[1.10057943e-01 1.18030910e-01 1.14399174e-01 6.50053013e-02]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[4.34478809e-02 5.67428298e-02 6.30156212e-05 1.18032012e-01]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[4.28446026e-02 5.99301407e-02 3.57654260e-02 1.29873991e-02]]&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="80" width="390" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="[ 1. -1. -1.&amp;nbsp; 1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="100" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="[ 1. -1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1170" y="220" width="50" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;div&gt;[[ 0.11927821&amp;nbsp; 0.05302826]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[ 0.01082355 -0.00795034]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[ 0.56675768&amp;nbsp; 0.06052724]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[ 0.01413461&amp;nbsp; 0.18340078]]&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="970" y="200" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="[-1. -1.&amp;nbsp; 1. -1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="220" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;div&gt;[[0.07555335 0.0053317&amp;nbsp; 0.13839198 0.00341633]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.10672461 0.11469758 0.12439917 0.06167197]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.04011455 0.0534095&amp;nbsp; 0.01006302 0.11469868]&lt;/div&gt;&lt;div&gt;&amp;nbsp;[0.03951127 0.05659681 0.04576543 0.00965407]]&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="200" width="390" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="[ 1. -1. -1.&amp;nbsp; 1.]" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="220" width="120" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
