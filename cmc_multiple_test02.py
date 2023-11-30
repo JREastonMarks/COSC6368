@@ -2,27 +2,36 @@ import numpy as np
 from compute.CorticalMiniColumn import CorticalMiniColumn
 
 # Setup
-vector_input_size = 9
+vector_input_size = 16
 vector_output_size = 2
 
-label_encoder = CorticalMiniColumn(layer_sizes=[vector_input_size,vector_output_size], omega=0.01, excitation=0.6)
+label_encoder = CorticalMiniColumn(16, 2, 3, omega=0.01, excitation=0.6)
 
-label_a_input = np.array([1, 0, 0, 0, 1, 0, 0, 0, 1 ], np.float32).reshape((vector_input_size))
+label_a_input = np.array([1, 0, 0, 0,
+                          0, 1, 0, 0,
+                          0, 0, 1, 0,
+                          0, 0, 0, 1], np.float32).reshape((vector_input_size))
+
 label_a_goal = np.array([1, 0], np.float32).reshape((vector_output_size))
 
-label_b_input = np.array([0, 0, 1, 0, 1, 0, 1, 0, 0 ], np.float32).reshape((vector_input_size))
+label_b_input = np.array([0, 0, 0, 1, 
+                          0, 0, 1, 0,
+                          0, 1, 0, 0,
+                          1, 0, 0, 0], np.float32).reshape((vector_input_size))
 label_b_goal = np.array([0, 1], np.float32).reshape((vector_output_size))
 
-label_c_input = np.array([1, 0, 1, 0, 1, 0, 1, 0, 1 ], np.float32).reshape((vector_input_size))
+label_c_input = np.array([1, 0, 0, 1,
+                          0, 1, 1, 0,
+                          0, 1, 1, 0,
+                          1, 0, 0, 1], np.float32).reshape((vector_input_size))
 label_c_goal = np.array([1, 1], np.float32).reshape((vector_output_size))
 
 def train(unit, label_in, label_goal):
     for x in range(10000):
         label_output = label_encoder.forward_propagation(label_in)
 
-        
+        # print(f"{unit}\t{x}:\t{label_in} -> {label_output}")
         if(np.equal(label_output, label_goal).all()):
-            print(f"{unit}\t{x}:\t{label_in} -> {label_output}")
             break
         label_encoder.backward_propagation(label_goal)
 
