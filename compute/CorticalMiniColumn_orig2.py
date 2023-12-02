@@ -85,7 +85,6 @@ class CorticalMiniColumn:
             if len(neuron_layer_excitation_index) == 0:
                 # Scenario A
                 review_index = np.argmax(calc_weight[..., index])
-                self._iterate_backward_propagation(0, 1, layer - 1, review_index)
             else:
                 # Scenario B
                 sorted_review_index = np.flip(sorted_review_index)
@@ -95,12 +94,12 @@ class CorticalMiniColumn:
                     if sorted_review_pos in neuron_layer_excitation_index:
                         review_index = sorted_review_pos
                         break
-                change = weight[review_index]  
+            change = weight[review_index]  
 
-                change = change - base_change
-                change[index] = change[index] + self.omega + base_change
+            change = change - base_change
+            change[index] = change[index] + self.omega + base_change
 
-                weight[review_index] = change
+            weight[review_index] = change
         else:
             # Scenario D
             # sorted_review_index = np.flip(sorted_review_index)
@@ -115,6 +114,12 @@ class CorticalMiniColumn:
             change[index] = change[index] - self.omega - base_change
 
             weight[review_index] = change
+            
+        
+        
+
+        if actual < goal and len(neuron_layer_excitation_index) == 0:
+            self._iterate_backward_propagation(0, 1, layer - 1, review_index)
 
 
     

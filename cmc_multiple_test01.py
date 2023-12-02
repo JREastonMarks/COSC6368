@@ -1,5 +1,5 @@
 import numpy as np
-from compute.CorticalMiniColumn import CorticalMiniColumn
+from compute.CorticalMiniColumn_orig import CorticalMiniColumn
 
 # Setup
 vector_input_size = 9

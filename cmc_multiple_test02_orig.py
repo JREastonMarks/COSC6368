@@ -1,12 +1,12 @@
 import numpy as np
-from compute.CorticalMiniColumn import CorticalMiniColumn
+from compute.CorticalMiniColumn_orig import CorticalMiniColumn
 
 
 # Setup
 vector_input_size = 16
 vector_output_size = 2
 
-label_encoder = CorticalMiniColumn(16, 2, 3, omega=0.01, excitation=0.6)
+label_encoder = CorticalMiniColumn(layer_sizes=[vector_input_size,vector_output_size], omega=0.01, excitation=0.6)
 
 label_a_input = np.array([1, 0, 0, 0,
                           0, 1, 0, 0,
@@ -31,7 +31,7 @@ def train(unit, label_in, label_goal):
     for x in range(10000):
         label_output = label_encoder.forward_propagation(label_in)
 
-        
+        # print(f"{unit}\t{x}:\t{label_in} -> {label_output}")
         if(np.equal(label_output, label_goal).all()):
             print(f"{unit}\t{x}:\t{label_in} -> {label_output}")
             break
