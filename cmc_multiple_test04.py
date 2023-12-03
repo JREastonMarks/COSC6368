@@ -5,9 +5,9 @@ from compute.CorticalMiniColumn import CorticalMiniColumn
 # Setup
 vector_input_size = 25
 vector_output_size = 3
-dither_size = 5
+dither_size = 3
 
-label_encoder = CorticalMiniColumn(vector_input_size, vector_output_size, dither_size, omega=0.01, excitation=0.6)
+label_encoder = CorticalMiniColumn(vector_input_size, vector_output_size, dither_size, omega=0.01, excitation=0.7)
 
 label_a_input = np.array([1, 0, 0, 0, 0,
                           0, 1, 0, 0, 0,

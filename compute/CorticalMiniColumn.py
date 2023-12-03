@@ -59,7 +59,7 @@ class CorticalMiniColumn:
             self._iterate_backward_propagation(actual, goal[goal_index], neuron_layer_last_position - 1, goal_index)
 
 
-    # 4 Scenarios
+     # 4 Scenarios
     # A - Actual 0, Goal 1, Excited 0
     # B - Actual 0, Goal 1, Excited >0
     # C - Actual 1, Goal 0, Excited 0 - Cannot Happen
@@ -72,11 +72,90 @@ class CorticalMiniColumn:
         neuron_layer_excitation_index = np.where(neuron_layer == 1)[0]
 
         weight = self.weights[layer]
+        weight_calculated = np.multiply(weight, self.distances[layer])
+        weight_calculated_neuron = weight_calculated[..., index]
+
+        base_change = self.omega / (weight_calculated.shape[1] - 1)
+
+        weight_change_index = -1
+        weight_calculated_neuron_sorted_index = np.flip(np.argsort(weight_calculated_neuron))
+
         
+        if actual < goal and (len(neuron_layer_excitation_index) == 0):
+            # Scenario A - Actual 0, Goal 1, Excited == 0
+            # Find the weight that would have the greatest impact. Use that weight to determine
+            # which input neuron would be most likely to excite it. Then recursively call this function
+            # to try to change it to 1
+            weight_change_index = weight_calculated_neuron_sorted_index[len(weight_calculated_neuron_sorted_index) - 1]
+            self._iterate_backward_propagation(0, 1, layer - 1, weight_change_index)
+        elif actual < goal and (len(neuron_layer_excitation_index) > 0):
+            # Scenario B - Actual 0, Goal 1, Excited > 0
+            # Using the intersection of the index of sorted weights and of excited neurons 
+            # determine the weight that is most likely to change the value of this neuron.
+            # Increase that weight and decrease all other weights only if it is below 1 - omega.
+            # Otherwise move to next one.
+            valid_weight_index = self.__intersect_with_order(weight_calculated_neuron_sorted_index, neuron_layer_excitation_index)
+
+            for candidate_weight_index in valid_weight_index:
+                if weight[int(candidate_weight_index), index] < (1 - self.omega):
+                    weight_change_index = int(candidate_weight_index)
+                    break
+
+            if weight_change_index >= 0:
+                change = weight[weight_change_index]
+                change = change - base_change
+                change[index] = change[index] + self.omega + base_change
+
+                weight[weight_change_index] = change
+
+        else:
+            # Scenario D - Actual 1, Goal 0, Excited > 0
+            # Using the intersection of the index of sorted weights and of excited neurons
+            # determine the weight that is most likely to change the value of the neuron.
+            # Decrease that weight and increase all other weights only if it is above omega.
+            # Otherwise move to next one.
+            valid_weight_index = self.__intersect_with_order(weight_calculated_neuron_sorted_index, neuron_layer_excitation_index)
+
+            for candidate_weight_index in valid_weight_index:
+                if weight[int(candidate_weight_index), index] > self.omega:
+                    weight_change_index = int(candidate_weight_index)
+                    break
+
+            if weight_change_index >= 0:
+                change = weight[weight_change_index]
+                change = change + base_change
+                change[index] = change[index] - self.omega - base_change
+
+                weight[weight_change_index] = change
+
+    def __intersect_with_order(self, sorted_ar1, ar2):
+        returns = np.empty([0,])
+
+        for ar1_entry in sorted_ar1:
+            if ar1_entry in ar2:
+                returns = np.append(returns, ar1_entry)
+
+        return returns
+            
+
+
+    # 4 Scenarios
+    # A - Actual 0, Goal 1, Excited 0
+    # B - Actual 0, Goal 1, Excited >0
+    # C - Actual 1, Goal 0, Excited 0 - Cannot Happen
+    # D - Actual 1, Goal 0, Excited >0
+    def _iterate_backward_propagation_old(self, actual, goal, layer, index):
+        if (layer < 0) or (actual == goal):
+            return
+        
+        neuron_layer = self.layers[layer]
+        neuron_layer_excitation_index = np.where(neuron_layer == 1)[0]
+
+        weight = self.weights[layer]
         calc_weight = np.multiply(weight, self.distances[layer])
         
         base_change = self.omega / (calc_weight.shape[1] - 1)
-
+        
         review_index = 0
         sorted_review_index = np.argsort(calc_weight[..., index])
         
@@ -89,10 +168,11 @@ class CorticalMiniColumn:
             else:
                 # Scenario B
                 sorted_review_index = np.flip(sorted_review_index)
-                
 
+                possible_weight_indexes = np.argwhere(weight[..., index] < (1 - self.omega)).flatten()
+                
                 for sorted_review_pos in sorted_review_index:
-                    if sorted_review_pos in neuron_layer_excitation_index:
+                    if ((sorted_review_pos in neuron_layer_excitation_index) and (sorted_review_pos in possible_weight_indexes)):
                         review_index = sorted_review_pos
                         break
                 change = weight[review_index]  
@@ -104,9 +184,10 @@ class CorticalMiniColumn:
         else:
             # Scenario D
             # sorted_review_index = np.flip(sorted_review_index)
+            possible_weight_indexes = np.argwhere(weight[..., index] > self.omega).flatten()
 
             for sorted_review_pos in sorted_review_index:
-                if sorted_review_pos in neuron_layer_excitation_index:
+                if ((sorted_review_pos in neuron_layer_excitation_index) and (sorted_review_pos in possible_weight_indexes)):
                     review_index = sorted_review_pos
                     break
             change = weight[review_index]  
